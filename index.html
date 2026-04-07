@@ -3,481 +3,587 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rongchyi Illustration | 溫柔的視覺敘事</title>
-    <meta name="description" content="Rongchyi 插畫工作室，提供商業插畫、品牌視覺與繪本創作服務。">
+    <title>Peijeans Tsai | Soft Minimal Portfolio</title>
     
-    <!-- 引入字型：思源宋體(日系標題/直書用) + Zen Maru Gothic (內文圓體) -->
+    <!-- 引入字型：Noto Serif TC (優雅明體/標題) + Noto Sans TC (俐落黑體/內文) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600&family=Zen+Maru+Gothic:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;500&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- 1. 全局變數 (日系侘寂色票) --- */
+        /* --- 1. 色彩與變數 (柔和清新色調) --- */
         :root {
-            --bg-washi: #F7F5F0;         /* 和紙白 (背景) */
-            --text-ink: #333333;         /* 墨黑 (主要文字) */
-            --text-light: #7A7A7A;       /* 淺墨 (次要文字) */
-            --accent-matcha: #8A9A5B;    /* 抹茶綠 (強調色) */
-            --accent-matcha-dark: #6A7A3B;
-            --accent-sakura: #D4B59E;    /* 櫻花/奶茶混色 */
-            --line-color: #E2E0D9;       /* 纖細線條色 */
-            --white: #FFFFFF;
+            --bg-color: #FCFEFE;       /* 極淺的微青白色底 */
+            --text-main: #334155;      /* 柔和的深藍灰 */
+            --text-light: #64748B;     /* 淺藍灰色 */
+            --accent-teal: #4FD1C5;    /* 柔和青綠色 (主色調) */
+            --accent-blue: #93C5FD;    /* 柔和淡藍色 */
             
-            --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            /* 漸層光暈顏色 */
+            --glow-1: rgba(79, 209, 197, 0.15); /* Teal glow */
+            --glow-2: rgba(147, 197, 253, 0.15); /* Blue glow */
+            
+            /* 輕柔陰影 */
+            --shadow-sm: 0 4px 15px rgba(0, 0, 0, 0.03);
+            --shadow-md: 0 10px 30px rgba(50, 100, 100, 0.05);
+            --shadow-lg: 0 20px 40px rgba(79, 209, 197, 0.08);
         }
 
-        /* --- 2. 基礎設定 & 和紙材質 --- */
-        * { box-sizing: border-box; margin: 0; padding: 0; cursor: none; }
-        
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
-        
+
         body {
-            font-family: 'Zen Maru Gothic', sans-serif;
-            background-color: var(--bg-washi);
-            color: var(--text-ink);
-            line-height: 2;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Noto Sans TC', sans-serif;
+            line-height: 1.8;
             overflow-x: hidden;
-            /* SVG 噪點背景，模擬日式和紙質感 */
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
         }
 
-        /* 日系設計靈魂：標題使用宋體 */
-        h1, h2, h3, .serif-text { font-family: 'Noto Serif TC', serif; font-weight: 400; }
+        a { text-decoration: none; color: inherit; transition: 0.3s ease; }
+        ul { list-style: none; }
+        img { width: 100%; height: 100%; object-fit: cover; display: block; }
         
-        a { text-decoration: none; color: inherit; transition: var(--transition); }
-        img { width: 100%; display: block; }
-        
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 40px; position: relative; z-index: 2; }
+        .serif { font-family: 'Noto Serif TC', serif; }
 
-        /* --- 3. 纖細版自訂游標 --- */
-        .cursor-dot, .cursor-outline {
-            position: fixed; top: 0; left: 0; transform: translate(-50%, -50%);
-            border-radius: 50%; z-index: 9999; pointer-events: none;
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 5%; position: relative; z-index: 10; }
+
+        /* --- 2. 暈染漸層背景 (Soft Ambient Glows) --- */
+        .ambient-glow {
+            position: absolute; border-radius: 50%; filter: blur(80px); z-index: 0; pointer-events: none;
         }
-        .cursor-dot { width: 4px; height: 4px; background-color: var(--text-ink); }
-        .cursor-outline {
-            width: 40px; height: 40px; border: 1px solid var(--accent-matcha);
-            transition: width 0.3s, height 0.3s, background-color 0.3s;
+        .glow-top { top: -10%; left: -10%; width: 60vw; height: 60vw; background: var(--glow-1); }
+        .glow-mid { top: 40%; right: -10%; width: 50vw; height: 50vw; background: var(--glow-2); }
+        .glow-bottom { bottom: -10%; left: 10%; width: 60vw; height: 60vw; background: var(--glow-1); }
+
+        /* --- 3. 巨型空心背景字 (Reference Image Style) --- */
+        .bg-text {
+            position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+            font-family: 'Noto Serif TC', serif; font-size: 15vw; white-space: nowrap;
+            color: transparent; -webkit-text-stroke: 1px rgba(79, 209, 197, 0.2);
+            z-index: -1; pointer-events: none; letter-spacing: 0.2em; opacity: 0.8;
+            user-select: none;
         }
-        body.hovering .cursor-outline { width: 60px; height: 60px; background-color: rgba(138, 154, 91, 0.1); border-color: transparent; }
 
-        /* --- 4. 漂浮裝飾 (改為更低調的顏色) --- */
-        .bg-decorations { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
-        .float-svg { position: absolute; opacity: 0.3; animation: float 12s ease-in-out infinite; }
-        @keyframes float { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-15px) rotate(3deg); } }
-
-        /* --- 5. 通用元件 (日系極簡風) --- */
-        .btn-outline {
-            display: inline-flex; align-items: center; gap: 10px; padding: 12px 40px;
-            border: 1px solid var(--text-ink); color: var(--text-ink);
-            border-radius: 50px; font-family: 'Noto Serif TC', serif; letter-spacing: 2px;
-            background: transparent; transition: var(--transition);
-        }
-        .btn-outline:hover { background: var(--text-ink); color: var(--white); }
-
-        .section-title { text-align: center; margin-bottom: 80px; }
-        .section-title .en { font-family: 'Zen Maru Gothic'; font-size: 0.8rem; letter-spacing: 3px; color: var(--accent-matcha); text-transform: uppercase; display: block; margin-bottom: 10px; }
-        .section-title h2 { font-size: 2.2rem; letter-spacing: 4px; color: var(--text-ink); }
-
-        /* --- 6. 極簡導覽列 --- */
+        /* --- 4. 導覽列 --- */
         header {
-            padding: 30px 0; position: fixed; top: 0; width: 100%; z-index: 1000;
-            background: rgba(247, 245, 240, 0.85); backdrop-filter: blur(8px);
-            border-bottom: 1px solid rgba(0,0,0,0.05);
+            padding: 20px 0; background: rgba(252, 254, 254, 0.8); backdrop-filter: blur(10px);
+            position: sticky; top: 0; z-index: 100;
         }
         header .container { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Noto Serif TC', serif; font-size: 1.4rem; letter-spacing: 2px; }
-        .nav-links { display: flex; gap: 40px; }
-        .nav-links a { font-size: 0.9rem; letter-spacing: 1px; color: var(--text-light); }
-        .nav-links a:hover { color: var(--accent-matcha); }
-
-        /* --- 7. Hero Section (日系縱書排版) --- */
-        .hero { padding: 150px 0 100px; min-height: 90vh; display: flex; align-items: center; }
-        .hero .container { display: flex; justify-content: space-between; align-items: center; gap: 60px; }
         
-        /* 直書文字區域 */
-        .hero-text {
-            writing-mode: vertical-rl; /* 關鍵：垂直排版，從右到左 */
-            text-orientation: mixed;
-            height: 450px;
-            display: flex; flex-direction: column; justify-content: flex-start;
+        .logo { font-size: 1.5rem; letter-spacing: 2px; color: var(--accent-teal); font-weight: 500; }
+        .nav-links { display: flex; gap: 35px; align-items: center; }
+        .nav-links a { font-weight: 500; font-size: 0.95rem; color: var(--text-light); }
+        .nav-links a:hover { color: var(--accent-teal); }
+        .nav-btn {
+            background: #fff; border: 1px solid var(--accent-teal); color: var(--accent-teal) !important;
+            padding: 8px 24px; border-radius: 50px; box-shadow: var(--shadow-sm);
         }
-        .hero-text h1 {
-            font-size: 3.5rem; line-height: 1.5; letter-spacing: 0.2em;
-            color: var(--text-ink); margin-left: 30px;
+        .nav-btn:hover { background: var(--accent-teal); color: #fff !important; box-shadow: var(--shadow-md); }
+
+        /* --- 5. Hero 區塊 (柔和簡約介紹) --- */
+        .hero { padding: 80px 0 120px; position: relative; text-align: center; }
+        
+        .hero-badge {
+            display: inline-block; font-size: 0.9rem; color: var(--accent-teal);
+            background: rgba(79, 209, 197, 0.1); padding: 5px 20px; border-radius: 50px;
+            margin-bottom: 20px; font-weight: 500; letter-spacing: 1px;
         }
-        .hero-text p {
-            font-family: 'Noto Serif TC', serif; font-size: 1.1rem; line-height: 2.5;
-            letter-spacing: 0.2em; color: var(--text-light);
+        .hero-title {
+            font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.3; color: var(--text-main);
+            margin-bottom: 30px; letter-spacing: 2px;
+        }
+        .hero-desc {
+            font-size: 1.1rem; color: var(--text-light); max-width: 700px; margin: 0 auto 50px; line-height: 2;
         }
         
-        .hero-img-box { flex: 1; position: relative; max-width: 600px; }
-        /* 日系細線偏移裝飾 */
-        .hero-img-box::after {
-            content: ''; position: absolute; top: 20px; right: -20px;
-            width: 100%; height: 100%; border: 1px solid var(--accent-sakura);
-            z-index: 1; border-radius: 200px 200px 0 0;
+        /* 懸浮的圖片展示 */
+        .hero-image-wrap {
+            max-width: 800px; margin: 0 auto; position: relative;
         }
-        .hero-img-box img {
-            border-radius: 200px 200px 0 0; position: relative; z-index: 2;
-            aspect-ratio: 3/4; object-fit: cover;
+        .hero-img {
+            border-radius: 20px; box-shadow: var(--shadow-lg); background: #fff;
+            padding: 10px; position: relative; z-index: 2;
         }
+        .hero-img img { border-radius: 12px; }
 
-        /* --- 8. 無盡像框 (細緻版) --- */
-        .marquee-section { padding: 30px 0; border-top: 1px solid var(--line-color); border-bottom: 1px solid var(--line-color); overflow: hidden; margin-bottom: 100px; }
-        .marquee-track { display: flex; gap: 60px; width: max-content; animation: scroll 40s linear infinite; }
-        .marquee-item { font-family: 'Noto Serif TC', serif; font-size: 1.1rem; letter-spacing: 3px; color: var(--text-light); white-space: nowrap; }
-        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        /* --- 6. 專業技能區塊 (星系圓形排版 - 致敬參考圖 FEATURES) --- */
+        .skills-section { padding: 120px 0; position: relative; text-align: center; }
+        .section-subtitle { font-size: 0.9rem; color: var(--accent-teal); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 10px; }
+        .section-title { font-size: 2.2rem; color: var(--text-main); margin-bottom: 80px; letter-spacing: 2px; }
 
-        /* --- 9. 設計師介紹 (直排引言) --- */
-        .designer-section { padding: 0 0 120px; }
-        .profile-wrapper { display: flex; align-items: center; justify-content: center; gap: 80px; }
-        .profile-img-box { width: 350px; position: relative; }
-        .profile-img { aspect-ratio: 3/4; object-fit: cover; border-radius: 12px; position: relative; z-index: 2; filter: contrast(0.9) brightness(1.05); /* 讓照片帶點日系空氣感 */ }
+        .features-constellation {
+            position: relative; max-width: 800px; margin: 0 auto; height: 500px;
+            display: flex; justify-content: center; align-items: center;
+        }
+        /* 中心主圖 */
+        .center-hub {
+            width: 250px; padding: 20px; background: #fff; border-radius: 16px;
+            box-shadow: var(--shadow-lg); z-index: 5; position: relative;
+        }
+        .center-hub h3 { font-size: 1.2rem; color: var(--accent-teal); letter-spacing: 1px; }
+        .center-hub p { font-size: 0.85rem; color: var(--text-light); margin-top: 10px; }
         
-        .profile-quote-vertical {
-            writing-mode: vertical-rl; text-orientation: mixed; height: 350px;
-            font-size: 1.4rem; font-family: 'Noto Serif TC', serif; letter-spacing: 0.3em;
-            color: var(--accent-matcha); border-right: 1px solid var(--accent-matcha);
-            padding-right: 20px; line-height: 2;
+        /* 衛星圓形圖示 */
+        .satellite {
+            position: absolute; width: 140px; height: 140px; background: #fff;
+            border-radius: 50%; box-shadow: var(--shadow-md); display: flex;
+            flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; padding: 15px; border: 1px solid rgba(79, 209, 197, 0.2);
+            transition: 0.3s; z-index: 6;
         }
+        .satellite:hover { transform: translateY(-10px) scale(1.05); box-shadow: var(--shadow-lg); border-color: var(--accent-teal); }
+        .sat-icon { width: 35px; height: 35px; margin-bottom: 10px; }
+        .satellite h4 { font-size: 0.9rem; color: var(--text-main); }
+        .satellite p { font-size: 0.7rem; color: var(--text-light); line-height: 1.4; margin-top: 5px; }
 
-        .profile-text { max-width: 350px; }
-        .profile-text h2 { font-size: 2.5rem; margin-bottom: 20px; letter-spacing: 2px; }
-        .profile-text p { color: var(--text-light); text-align: justify; margin-bottom: 30px; }
+        /* 定位衛星 (使用絕對定位模擬星系圖) */
+        .sat-1 { top: 0; left: 10%; }
+        .sat-2 { top: 10%; right: 10%; }
+        .sat-3 { bottom: 10%; left: 5%; }
+        .sat-4 { bottom: 0; right: 15%; }
 
-        /* --- 10. 服務項目 (無陰影邊線風格) --- */
-        .services { padding-bottom: 120px; }
-        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
-        .service-card {
-            background: transparent; padding: 50px 30px; border: 1px solid var(--line-color);
-            text-align: center; transition: var(--transition); border-radius: 4px;
+        /* --- 7. 專案作品 (柔和卡片網格) --- */
+        .projects-section { padding: 100px 0; position: relative; }
+        
+        .projects-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px;
         }
-        .service-card:hover { border-color: var(--accent-matcha); background: var(--white); transform: translateY(-5px); }
-        .service-icon { width: 40px; height: 40px; fill: var(--text-ink); margin-bottom: 25px; transition: var(--transition); }
-        .service-card:hover .service-icon { fill: var(--accent-matcha); }
-        .service-card h3 { font-size: 1.3rem; letter-spacing: 2px; margin-bottom: 15px; }
-        .service-card p { font-size: 0.9rem; color: var(--text-light); }
-
-        /* --- 11. 魔法畫布 (極簡控制條) --- */
-        .magic-section { padding-bottom: 120px; }
-        .comparison-container {
-            position: relative; width: 100%; max-width: 900px; height: 500px; margin: 0 auto;
-            overflow: hidden; cursor: ew-resize; border-radius: 4px; border: 1px solid var(--line-color);
+        .project-card {
+            background: #fff; border-radius: 20px; overflow: hidden;
+            box-shadow: var(--shadow-sm); transition: 0.4s ease;
+            border: 1px solid rgba(0,0,0,0.02);
         }
-        .comp-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
-        .img-before { z-index: 1; filter: grayscale(100%); }
-        .img-after { z-index: 2; width: 50%; border-right: 1px solid var(--white); overflow: hidden; }
-        /* 日系纖細拖曳把手 */
-        .slider-handle {
-            position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-            width: 40px; height: 100%; z-index: 10; display: flex; align-items: center; justify-content: center; pointer-events: none;
+        .project-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); }
+        .card-img-wrap { padding: 15px; background: #f8fafc; }
+        .card-img { width: 100%; aspect-ratio: 4/3; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .card-content { padding: 25px; text-align: center; }
+        .card-tag { font-size: 0.75rem; color: var(--accent-teal); letter-spacing: 1px; margin-bottom: 8px; display: block; }
+        .card-title { font-size: 1.3rem; color: var(--text-main); margin-bottom: 10px; }
+        .card-desc { font-size: 0.9rem; color: var(--text-light); }
+
+        /* --- 8. 學經歷 (清新的垂直時間軸) --- */
+        .timeline-section { padding: 100px 0 150px; position: relative; }
+        .timeline { max-width: 700px; margin: 0 auto; position: relative; }
+        .timeline::before {
+            content: ''; position: absolute; left: 50%; top: 0; transform: translateX(-50%);
+            width: 1px; height: 100%; background: linear-gradient(to bottom, rgba(79,209,197,0), rgba(79,209,197,0.5), rgba(79,209,197,0));
         }
-        .slider-handle::before { content: ''; width: 1px; height: 100%; background: var(--white); position: absolute; }
-        .slider-circle { width: 30px; height: 30px; border: 1px solid var(--white); background: rgba(255,255,255,0.2); backdrop-filter: blur(4px); border-radius: 50%; display: flex; align-items: center; justify-content: center; position: relative; z-index: 2;}
-        .slider-circle::after { content: '↔'; color: var(--white); font-size: 12px; }
+        .timeline-item {
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; width: 100%;
+        }
+        .timeline-item:nth-child(even) { flex-direction: row-reverse; }
+        .timeline-content {
+            width: 45%; background: #fff; padding: 30px; border-radius: 16px;
+            box-shadow: var(--shadow-sm); position: relative;
+            border: 1px solid rgba(79, 209, 197, 0.1); transition: 0.3s;
+        }
+        .timeline-content:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+        
+        .time-dot {
+            width: 16px; height: 16px; background: #fff; border: 3px solid var(--accent-teal);
+            border-radius: 50%; position: absolute; left: 50%; transform: translateX(-50%);
+            box-shadow: 0 0 0 6px rgba(79, 209, 197, 0.1);
+        }
+        .time-date { font-size: 0.85rem; color: var(--accent-teal); font-weight: 700; margin-bottom: 5px; }
+        .time-title { font-size: 1.1rem; color: var(--text-main); margin-bottom: 10px; font-weight: 500; }
+        .time-desc { font-size: 0.9rem; color: var(--text-light); }
 
-        /* --- 12. 合作流程 (點狀引線) --- */
-        .process-section { padding-bottom: 120px; }
-        .steps { display: flex; justify-content: space-between; position: relative; max-width: 900px; margin: 0 auto; }
-        .steps::before { content: ''; position: absolute; top: 25px; left: 0; width: 100%; height: 1px; border-top: 1px dashed var(--line-color); z-index: 0; }
-        .step-item { position: relative; z-index: 1; text-align: center; width: 150px; background: var(--bg-washi); }
-        .step-num { width: 50px; height: 50px; background: var(--bg-washi); border: 1px solid var(--accent-matcha); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Noto Serif TC', serif; font-size: 1.2rem; color: var(--accent-matcha); margin: 0 auto 20px; }
-        .step-item h4 { font-size: 1.1rem; letter-spacing: 2px; margin-bottom: 10px; }
-        .step-item p { font-size: 0.85rem; color: var(--text-light); }
+        /* --- 9. Footer --- */
+        footer {
+            background: #fff; border-top: 1px solid rgba(0,0,0,0.03);
+            padding: 80px 0 40px; text-align: center; position: relative;
+        }
+        .footer-title { font-size: 2rem; color: var(--text-main); margin-bottom: 30px; letter-spacing: 2px; }
+        .footer-btn {
+            display: inline-block; background: var(--accent-teal); color: #fff;
+            padding: 12px 35px; border-radius: 50px; font-weight: 500; letter-spacing: 1px;
+            box-shadow: var(--shadow-md); transition: 0.3s; margin-bottom: 50px;
+        }
+        .footer-btn:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+        .footer-bottom { color: var(--text-light); font-size: 0.85rem; display: flex; flex-direction: column; gap: 10px;}
 
-        /* --- 13. FAQ (手風琴極簡版) --- */
-        .faq-section { max-width: 700px; margin: 0 auto 120px; }
-        .faq-item { border-bottom: 1px solid var(--line-color); padding: 25px 0; cursor: pointer; transition: var(--transition); }
-        .faq-question { font-family: 'Noto Serif TC', serif; font-size: 1.1rem; letter-spacing: 1px; display: flex; justify-content: space-between; align-items: center; color: var(--text-ink); }
-        .faq-answer { max-height: 0; overflow: hidden; transition: 0.4s ease; color: var(--text-light); font-size: 0.95rem; line-height: 1.8; }
-        .faq-item.active .faq-answer { max-height: 200px; margin-top: 15px; }
-        .toggle-icon { font-weight: 300; transition: var(--transition); color: var(--accent-matcha); }
-        .faq-item.active .toggle-icon { transform: rotate(45deg); }
+        /* --- 10. 關於我 (About Me) --- */
+        .about-section { padding: 120px 0; position: relative; }
+        .about-grid { display: flex; gap: 80px; align-items: center; }
+        .about-img { flex: 1; position: relative; }
+        .about-img img { border-radius: 20px; box-shadow: var(--shadow-lg); }
+        /* 圖片後方的裝飾框 */
+        .about-img::after { 
+            content: ''; position: absolute; top: 30px; left: -30px; 
+            width: 100%; height: 100%; border: 2px solid rgba(79, 209, 197, 0.4); 
+            border-radius: 20px; z-index: -1; transition: 0.3s;
+        }
+        .about-img:hover::after { transform: translate(10px, -10px); }
+        .about-content { flex: 1.2; }
+        .about-text-block { margin-bottom: 30px; }
+        .about-text-block h3 { font-size: 1.2rem; color: var(--accent-teal); margin-bottom: 10px; letter-spacing: 1px;}
+        .about-text-block p { font-size: 0.95rem; color: var(--text-light); text-align: justify; line-height: 1.9; }
 
-        /* --- 14. Footer --- */
-        footer { border-top: 1px solid var(--line-color); text-align: center; padding: 100px 0 50px; background: var(--bg-washi); }
-        .footer-cta h2 { font-size: 2rem; letter-spacing: 4px; margin-bottom: 40px; }
-        .footer-socials { margin: 60px 0 40px; }
-        .footer-socials a { margin: 0 20px; font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-light); }
-        .footer-socials a:hover { color: var(--accent-matcha); }
-        .copyright { font-size: 0.8rem; letter-spacing: 1px; color: var(--line-color); color: #ccc;}
+        /* --- 11. 合作流程 (Process) --- */
+        .process-section { padding: 100px 0; position: relative; text-align: center; }
+        .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; margin-top: 50px; }
+        .process-card { 
+            background: #fff; padding: 40px 20px; border-radius: 20px; 
+            box-shadow: var(--shadow-sm); position: relative; transition: 0.4s; 
+            border: 1px solid rgba(0,0,0,0.02); z-index: 2;
+        }
+        .process-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-lg); border-color: rgba(79, 209, 197, 0.3); }
+        .process-num { 
+            width: 50px; height: 50px; background: rgba(79, 209, 197, 0.1); 
+            color: var(--accent-teal); font-size: 1.2rem; display: flex; 
+            justify-content: center; align-items: center; border-radius: 50%; 
+            margin: 0 auto 20px; font-family: 'Noto Serif TC', serif;
+        }
+        .process-card h3 { font-size: 1.1rem; color: var(--text-main); margin-bottom: 10px; letter-spacing: 1px; }
+        .process-card p { font-size: 0.85rem; color: var(--text-light); line-height: 1.6; }
 
         /* --- RWD 手機版 --- */
         @media (max-width: 900px) {
-            .hero .container { flex-direction: column-reverse; justify-content: center; padding-top: 50px; }
-            .hero-text { writing-mode: horizontal-tb; height: auto; text-align: center; } /* 手機版改回橫式較易閱讀 */
-            .hero-text h1 { margin-left: 0; margin-bottom: 20px; font-size: 2.8rem; }
+            .bg-text { font-size: 25vw; top: 5%; }
+            .hero-title { font-size: 2.2rem; }
+            .nav-links { display: none; } /* 手機版隱藏選單 */
             
-            .profile-wrapper { flex-direction: column; text-align: center; }
-            .profile-quote-vertical { writing-mode: horizontal-tb; height: auto; border-right: none; border-bottom: 1px solid var(--accent-matcha); padding-right: 0; padding-bottom: 20px; margin-bottom: 20px;}
-            .services-grid { grid-template-columns: 1fr; }
+            /* 調整星系佈局為網格 */
+            .features-constellation { height: auto; flex-direction: column; gap: 20px; }
+            .center-hub { margin-bottom: 20px; }
+            .satellite { position: relative; top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important; width: 100%; border-radius: 16px; height: auto; padding: 25px; }
             
-            .steps { flex-direction: column; gap: 40px; }
-            .steps::before { width: 1px; height: 100%; top: 0; left: 50%; border-top: none; border-left: 1px dashed var(--line-color); }
-            .step-item { width: 100%; }
-            
-            /* Mobile Cursor Reset */
-            .cursor-dot, .cursor-outline { display: none; }
-            * { cursor: auto; }
+            /* 新增區塊 RWD */
+            .about-grid { flex-direction: column; gap: 40px; }
+            .about-img::after { display: none; }
+            .process-grid { grid-template-columns: 1fr; gap: 20px; }
+
+            /* 調整時間軸 */
+            .timeline::before { left: 20px; transform: none; }
+            .timeline-item { flex-direction: column !important; align-items: flex-end; }
+            .timeline-content { width: calc(100% - 50px); }
+            .time-dot { left: 20px; transform: translateX(-50%); }
         }
     </style>
 </head>
 <body>
 
-    <!-- 自訂纖細游標 -->
-    <div class="cursor-dot"></div>
-    <div class="cursor-outline"></div>
+    <!-- 柔和的漸層光暈背景 -->
+    <div class="ambient-glow glow-top"></div>
+    <div class="ambient-glow glow-mid"></div>
+    <div class="ambient-glow glow-bottom"></div>
 
-    <!-- 漂浮裝飾 (低調色) -->
-    <div class="bg-decorations">
-        <!-- 雲朵 -->
-        <svg class="float-svg" style="top: 20%; left: 10%; width: 120px; fill: #EBEAE4;" viewBox="0 0 24 24"><path d="M17.5,19c-0.83,0-1.5-0.67-1.5-1.5c0-0.83,0.67-1.5,1.5-1.5c0.83,0,1.5,0.67,1.5,1.5C19,18.33,18.33,19,17.5,19z M19,14.5 c0-2.49-2.01-4.5-4.5-4.5c-0.86,0-1.66,0.25-2.35,0.67C11.55,8.19,9.45,7,7,7C4.24,7,2,9.24,2,12c0,0.16,0.01,0.32,0.03,0.47 C2.01,12.51,2,12.55,2,12.6c0,2.43,1.97,4.4,4.4,4.4h11.1c2.49,0,4.5-2.01,4.5-4.5C22,10.64,20.72,8.44,19,14.5z"/></svg>
-        <!-- 葉片 -->
-        <svg class="float-svg" style="bottom: 15%; right: 10%; width: 80px; fill: #E2E0D9;" viewBox="0 0 24 24"><path d="M17,8C8,10,5.9,16.17,3.82,21.34L5.71,22l1-2.3A4.49,4.49,0,0,0,8,20C19,20,22,3,22,3Z"/></svg>
-    </div>
-
-    <!-- 極簡導覽列 -->
+    <!-- 導覽列 -->
     <header>
         <div class="container">
-            <a href="#" class="logo">rongchyi.</a>
+            <a href="#" class="logo serif">Peijeans.</a>
             <nav class="nav-links">
-                <a href="#designer">關於</a>
-                <a href="#work">作品</a>
-                <a href="#services">服務</a>
-                <a href="#contact">聯絡</a>
+                <a href="#about">About</a>
+                <a href="#skills">Skills</a>
+                <a href="#work">Projects</a>
+                <a href="#process">Process</a>
+                <a href="#experience">Experience</a>
+                <a href="#contact" class="nav-btn">Contact</a>
             </nav>
         </div>
     </header>
 
-    <!-- Hero Section (縱書排版) -->
+    <!-- 1. Hero 區塊 -->
     <section class="hero">
+        <div class="bg-text">P O R T F O L I O</div>
         <div class="container">
-            <!-- 桌面版為垂直排版 -->
-            <div class="hero-text">
-                <h1>畫筆下的<br>溫柔時光</h1>
-                <p>專注於手繪風格的插畫設計<br>將日常的微光，化作品牌的溫度。</p>
-            </div>
-            <div class="hero-img-box">
-                <!-- 建議放帶有空氣感/日系色調的插畫 -->
-                <img src="https://via.placeholder.com/600x800/EAE6DC/7A7A7A?text=Healing+Illustration" alt="主視覺">
+            <div class="hero-badge">蔡佩蓁 Nicole</div>
+            <h1 class="hero-title serif">設計思考 × 品牌視覺<br>創造生活新解方</h1>
+            <p class="hero-desc">
+                「當一個人知道自己想要什麼，整個世界為之讓路。」<br>
+                運用自身專長持續挑戰，期望透過跨領域知識的整合，為品牌注入全新的創造力。
+            </p>
+            
+            <!-- 懸浮圖片展示區 -->
+            <div class="hero-image-wrap">
+                <div class="hero-img">
+                    <!-- 建議放置一張乾淨明亮的個人照或主打作品圖 -->
+                    <img src="https://via.placeholder.com/1200x600/e8f5e9/4fd1c5?text=Visual+Design+Showcase" alt="Portfolio Showcase">
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- 無盡像框 (細緻字體版) -->
-    <div class="marquee-section">
-        <div class="marquee-track">
-            <div class="marquee-item">茶山嶼 Tea</div>
-            <div class="marquee-item">・</div>
-            <div class="marquee-item">回憶小時候</div>
-            <div class="marquee-item">・</div>
-            <div class="marquee-item">光域設計</div>
-            <div class="marquee-item">・</div>
-            <div class="marquee-item">府城鞋業</div>
-            <div class="marquee-item">・</div>
-            <div class="marquee-item">Saranghae Water</div>
-            <div class="marquee-item">・</div>
-            <!-- 重複 -->
-            <div class="marquee-item">茶山嶼 Tea</div>
-            <div class="marquee-item">・</div>
-            <div class="marquee-item">回憶小時候</div>
-            <div class="marquee-item">・</div>
-            <div class="marquee-item">光域設計</div>
-            <div class="marquee-item">・</div>
-            <div class="marquee-item">府城鞋業</div>
-            <div class="marquee-item">・</div>
-            <div class="marquee-item">Saranghae Water</div>
-            <div class="marquee-item">・</div>
-        </div>
-    </div>
-
-    <!-- 設計師介紹 (直排引言) -->
-    <section class="designer-section" id="designer">
+    <!-- 2. 專案作品 (改為輪播並移至上方) -->
+    <section class="projects-section" id="work">
+        <div class="bg-text" style="top: 15%;">P R O J E C T S</div>
         <div class="container">
-            <div class="profile-wrapper">
-                <div class="profile-img-box">
-                    <img src="https://via.placeholder.com/400x530/D4B59E/fff?text=Peijeans" alt="Peijeans" class="profile-img">
+            <p class="section-subtitle">Works</p>
+            <h2 class="section-title serif">專案作品集</h2>
+            
+            <div class="carousel-wrapper">
+                <button class="carousel-btn prev-btn">❮</button>
+                <div class="projects-carousel">
+                    <!-- 專案 1 -->
+                    <a href="#" class="project-card">
+                        <div class="card-img-wrap">
+                            <div class="card-img">
+                                <img src="https://via.placeholder.com/600x450/e0f2f1/334155?text=iWALK" alt="iWALK">
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <span class="card-tag">Brand Co-branding</span>
+                            <h3 class="card-title serif">iWALK 行動電源</h3>
+                            <p class="card-desc">品牌聯名插畫設計</p>
+                        </div>
+                    </a>
+                    
+                    <!-- 專案 2 -->
+                    <a href="#" class="project-card">
+                        <div class="card-img-wrap">
+                            <div class="card-img">
+                                <img src="https://via.placeholder.com/600x450/e3f2fd/334155?text=Oooh+x+六月初一" alt="Oooh">
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <span class="card-tag">Package Design</span>
+                            <h3 class="card-title serif">Oooh x 六月初一</h3>
+                            <p class="card-desc">聯名插畫與包裝設計</p>
+                        </div>
+                    </a>
+                    
+                    <!-- 專案 3 -->
+                    <a href="#" class="project-card">
+                        <div class="card-img-wrap">
+                            <div class="card-img">
+                                <img src="https://via.placeholder.com/600x450/fdf8f5/334155?text=鉑司咖啡" alt="鉑司咖啡">
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <span class="card-tag">Visual Design</span>
+                            <h3 class="card-title serif">鉑司咖啡</h3>
+                            <p class="card-desc">品牌明信片設計</p>
+                        </div>
+                    </a>
+
+                    <!-- 專案 4 -->
+                    <a href="#" class="project-card">
+                        <div class="card-img-wrap">
+                            <div class="card-img">
+                                <img src="https://via.placeholder.com/600x450/e0f2f1/334155?text=NPUST+MIS" alt="屏科大">
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <span class="card-tag">Editorial Design</span>
+                            <h3 class="card-title serif">屏科大資管系</h3>
+                            <p class="card-desc">手冊封面設計</p>
+                        </div>
+                    </a>
+
+                    <!-- 專案 5 (新增第五個卡片，讓輪播有內容可滑動) -->
+                    <a href="#" class="project-card">
+                        <div class="card-img-wrap">
+                            <div class="card-img">
+                                <img src="https://via.placeholder.com/600x450/e8f5e9/334155?text=Illustration" alt="插畫創作">
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <span class="card-tag">Illustration</span>
+                            <h3 class="card-title serif">個人插畫創作</h3>
+                            <p class="card-desc">日常與生活靈感繪製</p>
+                        </div>
+                    </a>
+                </div>
+                <button class="carousel-btn next-btn">❯</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. 關於我 (About Me) -->
+    <section class="about-section" id="about">
+        <div class="bg-text" style="top: 10%;">A B O U T</div>
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-img">
+                    <!-- 建議放置有質感的個人照或工作照 -->
+                    <img src="https://via.placeholder.com/600x800/e8f5e9/4fd1c5?text=Peijeans+Portrait" alt="Peijeans Tsai">
+                </div>
+                <div class="about-content">
+                    <p class="section-subtitle">Autobiography</p>
+                    <h2 class="section-title serif" style="margin-bottom: 40px; text-align: left;">關於我</h2>
+                    
+                    <div class="about-text-block">
+                        <h3 class="serif">設計探索與自我成長</h3>
+                        <p>我是蔡佩蓁，台南人。畢業於高雄科技大學行銷與流通管理系，從小最喜歡的事情就是畫畫。經歷了一段時間的自我摸索過程，在創作的過程中收穫到不少成就，積極學習設計及行銷的相關知識與技能，讓我確信對喜愛的事物有所執著。</p>
+                    </div>
+                    
+                    <div class="about-text-block">
+                        <h3 class="serif">勇敢創造自己的價值</h3>
+                        <p>創立個人插畫品牌，對我來說是一個勇敢的決定。對於個性較內向的我，在其中用插圖分享自己的日常生活，不管是人事物，都想帶給大家正向能量，希望能夠讓生活瑣事成為自己的力量，對自己的未來更有目標。</p>
+                    </div>
+                    
+                    <div class="about-text-block">
+                        <h3 class="serif">未來規劃</h3>
+                        <p>自小對創意與表達極具熱情，未來希望成為專業的行銷人員，專注於品牌行銷、數位行銷和市場策略的規劃與執行。我期望能夠跳脫舒適圈，充實專業技能，並為未來的職場帶來更大價值。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. 專業技能 (星系圖排版 - 致敬 FEATURES 圖片) -->
+    <section class="skills-section" id="skills">
+        <div class="bg-text" style="top: 20%;">F E A T U R E S</div>
+        <div class="container">
+            <p class="section-subtitle">What I do</p>
+            <h2 class="section-title serif">專業技能與服務</h2>
+            
+            <div class="features-constellation">
+                <!-- 中心節點 -->
+                <div class="center-hub">
+                    <h3>Peijeans 品牌</h3>
+                    <p>獨立插畫與設計服務<br>整合視覺與行銷的跨領域體驗</p>
                 </div>
                 
-                <!-- 日式直書引言 -->
-                <div class="profile-quote-vertical">
-                    設計是將細膩情感，<br>轉化為獨有的溫度。
+                <!-- 衛星技能 1 -->
+                <div class="satellite sat-1">
+                    <img src="https://api.iconify.design/lucide:pen-tool.svg?color=%234FD1C5" class="sat-icon" alt="Design">
+                    <h4>平面設計</h4>
+                    <p>Photoshop / Illustrator<br>影像處理與插圖繪製</p>
                 </div>
-
-                <div class="profile-text">
-                    <span class="serif-text" style="color:var(--accent-matcha); letter-spacing:2px; display:block; margin-bottom:10px;">Lead Designer</span>
-                    <h2>Peijeans</h2>
-                    <p>
-                        嗨，我是 Peijeans。rongchyi 工作室的主理人與插畫家。<br><br>
-                        擅長捕捉光影與色彩的微妙變化，將那份屬於台南的慢活氣息帶入設計中。
-                        無論是商業品牌重塑，還是充滿童趣的繪本創作，我都堅持用最純粹的筆觸，為每一個專案注入靈魂。
-                    </p>
-                    <img src="https://via.placeholder.com/150x50/F7F5F0/D4B59E?text=Signature" alt="簽名" style="width:120px; opacity:0.8; mix-blend-mode: multiply;">
+                
+                <!-- 衛星技能 2 -->
+                <div class="satellite sat-2">
+                    <img src="https://api.iconify.design/lucide:package.svg?color=%234FD1C5" class="sat-icon" alt="Package">
+                    <h4>商業視覺</h4>
+                    <p>品牌聯名插畫<br>商品包裝設計</p>
+                </div>
+                
+                <!-- 衛星技能 3 -->
+                <div class="satellite sat-3">
+                    <img src="https://api.iconify.design/lucide:smartphone.svg?color=%234FD1C5" class="sat-icon" alt="Social">
+                    <h4>社群行銷</h4>
+                    <p>Google Adwords 認證<br>文案企劃與成效分析</p>
+                </div>
+                
+                <!-- 衛星技能 4 -->
+                <div class="satellite sat-4">
+                    <img src="https://api.iconify.design/lucide:image.svg?color=%234FD1C5" class="sat-icon" alt="Visual">
+                    <h4>文創商品</h4>
+                    <p>潮牌購物袋插圖<br>明信片與周邊設計</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 服務項目 (無陰影細線卡片) -->
-    <section class="services" id="services">
+    <!-- 新增：合作流程 (Process) -->
+    <section class="process-section" id="process">
+        <div class="bg-text" style="top: 15%;">P R O C E S S</div>
         <div class="container">
-            <div class="section-title">
-                <span class="en">Services</span>
-                <h2>提供服務</h2>
-            </div>
-            <div class="services-grid">
-                <div class="service-card">
-                    <svg class="service-icon" viewBox="0 0 24 24"><path d="M20 6h-3V4c0-1.1-.9-2-2-2H9c-1.1 0-2 .9-2 2v2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zM9 4h6v2H9V4zm11 16H4V8h16v12z"/></svg>
-                    <h3>商業插畫</h3>
-                    <p>產品包裝・網站視覺・品牌形象</p>
+            <p class="section-subtitle">Workflow</p>
+            <h2 class="section-title serif">合作流程</h2>
+            
+            <div class="process-grid">
+                <!-- 流程 1 -->
+                <div class="process-card">
+                    <div class="process-num">1</div>
+                    <h3 class="serif">需求諮詢</h3>
+                    <p>了解您的品牌需求、專案目標與視覺風格，並進行初步的討論與報價確認。</p>
                 </div>
-                <div class="service-card">
-                    <svg class="service-icon" viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
-                    <h3>繪本出版</h3>
-                    <p>兒童繪本・雜誌插畫・書籍封面</p>
+                <!-- 流程 2 -->
+                <div class="process-card">
+                    <div class="process-num">2</div>
+                    <h3 class="serif">概念草圖</h3>
+                    <p>依據討論內容繪製設計草圖或提供視覺企劃，與您確認構圖及設計方向。</p>
                 </div>
-                <div class="service-card">
-                    <svg class="service-icon" viewBox="0 0 24 24"><path d="M20,6h-2.18c0.11-0.31,0.18-0.65,0.18-1c0-1.66-1.34-3-3-3c-1.05,0-1.96,0.54-2.5,1.35l0,0C11.96,2.54,11.05,2,10,2 C8.34,2,7,3.34,7,5c0,0.35,0.07,0.69,0.18,1H5C3.9,6,3,6.9,3,8v2c0,0.55,0.45,1,1,1v8c0,1.1,0.9,2,2,2h12c1.1,0,2-0.9,2-2v-8 c0.55,0,1-0.45,1-1V8C22,6.9,21.1,6,20,6z"/></svg>
-                    <h3>客製周邊</h3>
-                    <p>似顏繪・婚禮小物・貼紙設計</p>
+                <!-- 流程 3 -->
+                <div class="process-card">
+                    <div class="process-num">3</div>
+                    <h3 class="serif">視覺完稿</h3>
+                    <p>進入正式的電腦繪圖與色彩渲染，並提供合理次數內的細節微調服務。</p>
+                </div>
+                <!-- 流程 4 -->
+                <div class="process-card">
+                    <div class="process-num">4</div>
+                    <h3 class="serif">專案交付</h3>
+                    <p>確認最終設計無誤後，交付高畫質原始檔與相關授權，完成合作。</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 魔法畫布 (極簡拉桿) -->
-    <section class="magic-section" id="work">
+    <!-- 4. 學歷與經歷 -->
+    <section class="timeline-section" id="experience">
+        <div class="bg-text" style="top: 10%;">E X P E R I E N C E</div>
         <div class="container">
-            <div class="section-title">
-                <span class="en">Process</span>
-                <h2>作畫過程</h2>
-            </div>
-            <div class="comparison-container" id="comparisonBox">
-                <img src="https://via.placeholder.com/900x500/EAE6DC/7A7A7A?text=Sketch+(草稿)" class="comp-img img-before">
-                <div class="comp-img img-after" id="imgAfter">
-                    <img src="https://via.placeholder.com/900x500/8A9A5B/fff?text=Final+Artwork+(完稿)" style="width:900px; height:500px; max-width:none;">
+            <p class="section-subtitle">Journey</p>
+            <h2 class="section-title serif">成長軌跡</h2>
+            
+            <div class="timeline">
+                <!-- 經歷 1 -->
+                <div class="timeline-item">
+                    <div class="time-dot"></div>
+                    <div class="timeline-content">
+                        <div class="time-date">2024</div>
+                        <h3 class="time-title serif">國立高雄科技大學</h3>
+                        <p class="time-desc">行銷與流通管理系 (一般商業學類)</p>
+                    </div>
                 </div>
-                <div class="slider-handle" id="sliderHandle">
-                    <div class="slider-circle"></div>
+                <!-- 經歷 2 -->
+                <div class="timeline-item">
+                    <div class="time-dot"></div>
+                    <div class="timeline-content">
+                        <div class="time-date">2023</div>
+                        <h3 class="time-title serif">品牌視覺設計</h3>
+                        <p class="time-desc">鉑司咖啡 品牌明信片設計<br>屏科大資管系 手冊封面設計</p>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 合作流程 (點狀引線) -->
-    <section class="process-section">
-        <div class="container">
-            <div class="section-title">
-                <span class="en">Workflow</span>
-                <h2>合作流程</h2>
-            </div>
-            <div class="steps">
-                <div class="step-item">
-                    <div class="step-num">一</div>
-                    <h4>諮詢報價</h4>
-                    <p>確認需求與風格</p>
+                <!-- 經歷 3 -->
+                <div class="timeline-item">
+                    <div class="time-dot"></div>
+                    <div class="timeline-content">
+                        <div class="time-date">2022</div>
+                        <h3 class="time-title serif">養元堂國際</h3>
+                        <p class="time-desc">百貨銷售人員<br>業績目標分配與視覺陳列</p>
+                    </div>
                 </div>
-                <div class="step-item">
-                    <div class="step-num">二</div>
-                    <h4>草圖提案</h4>
-                    <p>確認構圖與動態</p>
-                </div>
-                <div class="step-item">
-                    <div class="step-num">三</div>
-                    <h4>上色完稿</h4>
-                    <p>細節繪製與微調</p>
-                </div>
-                <div class="step-item">
-                    <div class="step-num">四</div>
-                    <h4>交付檔案</h4>
-                    <p>提供高清原始檔</p>
+                <!-- 經歷 4 -->
+                <div class="timeline-item">
+                    <div class="time-dot"></div>
+                    <div class="timeline-content">
+                        <div class="time-date">2020</div>
+                        <h3 class="time-title serif">國立台南高商</h3>
+                        <p class="time-desc">資料處理科<br>技藝競賽-網頁設計選手</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- FAQ (細緻手風琴) -->
-    <section class="faq-section">
-        <div class="section-title">
-            <span class="en">Q&A</span>
-            <h2>常見問答</h2>
-        </div>
-        <div class="faq-item">
-            <div class="faq-question">如果沒有具體的想法怎麼辦？ <span class="toggle-icon">+</span></div>
-            <div class="faq-answer">沒問題！您可以提供一些喜歡的參考圖片，我們會從中分析並引導您找到適合的風格。</div>
-        </div>
-        <div class="faq-item">
-            <div class="faq-question">通常一個案子需要多久時間？ <span class="toggle-icon">+</span></div>
-            <div class="faq-answer">視專案複雜度而定。一般單張插畫約 5-7 個工作天，全套品牌視覺約 2-4 週。急件請事先告知。</div>
-        </div>
-        <div class="faq-item">
-            <div class="faq-question">修改次數有限制嗎？ <span class="toggle-icon">+</span></div>
-            <div class="faq-answer">草稿階段可修改 2 次，完稿上色後可微調細節 2 次。超過次數將酌收費用。</div>
-        </div>
-    </section>
-
-    <!-- 頁尾 -->
+    <!-- 5. Footer -->
     <footer id="contact">
         <div class="container">
-            <div class="footer-cta">
-                <h2 class="serif-text">期待與您，<br>共創美好的作品。</h2>
-                <a href="mailto:hello@rongchyi.com" class="btn-outline" style="margin-top:20px;">與我們聯繫</a>
+            <h2 class="footer-title serif">Let's Create Together</h2>
+            <a href="mailto:nicole910419@gmail.com" class="footer-btn">nicole910419@gmail.com</a>
+            
+            <div class="footer-bottom">
+                <p>Phone: 0928-020-979</p>
+                <p><a href="https://www.instagram.com/peijeans_" target="_blank" style="text-decoration: underline;">Instagram: @peijeans_</a></p>
+                <p style="margin-top: 30px; opacity: 0.6;">© 2026 Peijeans Tsai. All rights reserved.</p>
             </div>
-            <div class="footer-socials">
-                <a href="#">Instagram</a>
-                <a href="#">Behance</a>
-                <a href="#">Facebook</a>
-            </div>
-            <p class="copyright">&copy; 2026 rongchyi illustration.</p>
         </div>
     </footer>
 
-    <!-- JavaScript 互動邏輯 -->
+    <!-- 互動邏輯 -->
     <script>
-        // --- 游標邏輯 ---
-        const cursorDot = document.querySelector(".cursor-dot");
-        const cursorOutline = document.querySelector(".cursor-outline");
+        // 輪播圖控制邏輯
+        const carousel = document.querySelector('.projects-carousel');
+        const prevBtn = document.querySelector('.prev-btn');
+        const nextBtn = document.querySelector('.next-btn');
 
-        window.addEventListener("mousemove", (e) => {
-            const posX = e.clientX;
-            const posY = e.clientY;
-            cursorDot.style.left = `${posX}px`;
-            cursorDot.style.top = `${posY}px`;
-            cursorOutline.animate({ left: `${posX}px`, top: `${posY}px` }, { duration: 600, fill: "forwards" });
-        });
-
-        document.querySelectorAll('a, .service-card, .faq-item, .comparison-container').forEach(el => {
-            el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
-            el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
-        });
-
-        // --- 魔法畫布邏輯 ---
-        const container = document.getElementById('comparisonBox');
-        const imgAfter = document.getElementById('imgAfter');
-        const handle = document.getElementById('sliderHandle');
-
-        function moveSlider(x) {
-            const rect = container.getBoundingClientRect();
-            let offset = x - rect.left;
-            if (offset < 0) offset = 0;
-            if (offset > rect.width) offset = rect.width;
-            handle.style.left = `${offset}px`;
-            imgAfter.style.width = `${offset}px`;
-        }
-
-        container.addEventListener('mousemove', (e) => moveSlider(e.clientX));
-        container.addEventListener('touchmove', (e) => moveSlider(e.touches[0].clientX));
-
-        // --- FAQ 開關邏輯 ---
-        document.querySelectorAll('.faq-item').forEach(item => {
-            item.addEventListener('click', () => {
-                document.querySelectorAll('.faq-item').forEach(other => {
-                    if (other !== item) other.classList.remove('active');
-                });
-                item.classList.toggle('active');
+        if(carousel && prevBtn && nextBtn) {
+            prevBtn.addEventListener('click', () => {
+                const cardWidth = carousel.querySelector('.project-card').offsetWidth;
+                carousel.scrollBy({ left: -(cardWidth + 40), behavior: 'smooth' }); // 40px 是 gap
             });
-        });
+
+            nextBtn.addEventListener('click', () => {
+                const cardWidth = carousel.querySelector('.project-card').offsetWidth;
+                carousel.scrollBy({ left: cardWidth + 40, behavior: 'smooth' });
+            });
+        }
     </script>
 </body>
 </html>
